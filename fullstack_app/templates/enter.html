@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neurological Rare Diseases Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+<div class="background-container">
+        <img src="static/images/docter.webp" alt="AI Brain Background" class="background-image">
+        <div class="overlay"></div>
+    </div>
+
+
+  <div class="home-container">
+    
+    {% if loggedin %}
+        <h1>Welcome, {{ username }} 👋</h1>
+        <p>You are logged in to the <b>Neurological Rare Diseases Portal</b>. Explore insights, research, and community resources.</p>
+        <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+    {% else %}
+        <h1>Neurological Rare Diseases Portal</h1>
+        <p>Discover resources, research updates, and community support for rare neurological disorders.</p>
+        <a href="{{ url_for('home') }}" class="btn">Enter</a>
+    {% endif %}
+  </div>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Help & Support - NeuroPredict AI</title>
+  <style>
+   
+  body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            color: #e0e0e0;
+            background-color: #0d0d1a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+    .help-container {
+        background-color:rgba(2, 21, 42, 0.5);
+        border-radius: 10px;
+        padding: 30px;
+        margin: 50px auto;
+        max-width: 800px;
+        margin-top:120px;
+        border: 1px solid rgba(0, 198, 255, 0.3);
+        box-shadow:  0 0 20px rgba(0, 198, 255, 0.2);
+    }
+
+    .help-container h1 {
+        font-size: 34px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 20px;
+        background: linear-gradient(90deg, #00C6FF, #0072FF);
+          background-clip: text;              /* Standard property */
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .help-container p {
+        font-size: 18px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        color: #d0d0d0;
+    }
+
+    .help-container h3 {
+        font-size: 20px;
+        font-weight: 600;
+        color: #00C6FF;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .help-container a {
+        color: #00C6FF;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    .help-container a:hover {
+        color: #0072FF;
+    }
+
+ header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background-color: rgba(2, 21, 42, 0.5);
+      border-bottom: 1px solid rgba(0, 198, 255, 0.3);
+      width: 100%;
+      box-sizing: border-box;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+
+    
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: #e0e0e0;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #00C6FF;
+    }
+
+    .nav-links .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #00C6FF, #0072FF);
+      color: #fff !important;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 198, 255, 0.4);
+    }
+
+  </style>
+</head>
+<body>
+   <header>
+  <div class="logo-text">🧬 NeuroPredict AI ⚕️</div>
+  <nav class="nav-links">
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('about') }}">About</a>
+    <a href="{{ url_for('contact') }}">Contact</a>
+    <a href="{{ url_for('help') }}">Help</a>
+    {% if session.get('user_id') %}
+      <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+    {% else %}
+      <a href="{{ url_for('login') }}">Login</a>
+      <a href="{{ url_for('register') }}">Register</a>
+    {% endif %}
+  </nav>
+</header>
+
+  <div class="help-container">
+    <h1>Help & Support</h1>
+    <p>Here are some common questions:</p>
+
+    <h3>1. How do I register?</h3>
+    <p>Go to the Register page and fill in your details to create an account.</p>
+
+    <h3>2. How do I use the prediction tool?</h3>
+    <p>Once logged in, navigate to the Predictive Analysis Form and enter the required details.</p>
+
+    <h3>3. Who can I contact for support?</h3>
+    <p>You can reach us at <a href="mailto:priyadharshinik1511@gmail.com">support@neuropredictai.org</a>.</p>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Data</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0d0d1a, #1a1a33);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #e0e0e0;
+    }
+
+    .form-container {
+      background: rgba(2, 21, 42, 0.5);
+      backdrop-filter: blur(15px);
+      border-radius: 15px;
+      padding: 40px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 8px 32px rgba(0, 198, 255, 0.2);
+      border: 1px solid rgba(0, 198, 255, 0.3);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 30px;
+      background: linear-gradient(90deg, #00C6FF, #0072FF);
+        background-clip: text;             
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      font-size: 18px;
+      margin: 10px 0;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      border-left: 3px solid #00C6FF;
+    }
+
+    .back-btn {
+      display: block;
+      width: 100%;
+      margin-top: 25px;
+      text-align: center;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(90deg, #00C6FF, #0072FF);
+      color: #fff;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 198, 255, 0.5);
+    }
+     .background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.background-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   
+    transform: scale(1.0);
+}
+header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background-color: rgba(2, 21, 42, 0.5);
+      border-bottom: 1px solid rgba(0, 198, 255, 0.3);
+      width: 100%;
+      box-sizing: border-box;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+
+    
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: #e0e0e0;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #00C6FF;
+    }
+
+    .nav-links .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      background: linear-gradient(90deg, #00C6FF, #0072FF);
+      color: #fff !important;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 198, 255, 0.4);
+    }
+
+
+  </style>
+</head>
+<body>
+  <div class="background-container">
+        <img src="static/images/dna.jpg" alt="AI Brain Background" class="background-image">
+        <div class="overlay"></div>
+    </div>
+   
+     <header>
+  <div class="logo-text">🧬 NeuroPredict AI ⚕️</div>
+  <nav class="nav-links">
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('about') }}">About</a>
+    <a href="{{ url_for('contact') }}">Contact</a>
+    <a href="{{ url_for('help') }}">Help</a>
+    {% if 'loggedin' in session %}
+      <a href="{{ url_for('logout') }}">Logout</a>
+    {% else %}
+      <a href="{{ url_for('login') }}" >Login</a>
+    {% endif %}
+  </nav>
+</header>
+  
+  <div class="form-container">
+    <h2>Submitted Patient Information</h2>
+    <p><b>Name:</b> {{ name }}</p>
+    <p><b>Age:</b> {{ age }}</p>
+    <p><b>Gender:</b> {{ gender }}</p>
+    <p><b>Memory Loss:</b> {{ memory_loss }}</p>
+    <p><b>Behaviour Changes:</b> {{ behaviour }}</p>
+    <p><b>Tremors:</b> {{ tremors }}</p>
+    <p><b>Coordination Loss:</b> {{ coordination }}</p>
+    <p><b>Seizures:</b> {{ seizures }}</p>
+    <p><b>Vision Loss:</b> {{ vision }}</p>
+    <p><b>Copper Level:</b> {{ copper }}</p>
+
+    <a href="{{ url_for('predictive_form') }}" class="back-btn">← Back to Analysis Form</a>
+  </div>
+</body>
+</html>

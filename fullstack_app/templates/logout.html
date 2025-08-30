@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logout - NeuroPredict AI</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0d0d1a, #1a1a33);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #e0e0e0;
+    }
+
+    .logout-container {
+      background: rgba(2, 21, 42, 0.5);
+      backdrop-filter: blur(15px);
+      border-radius: 15px;
+      padding: 40px 30px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 20px rgba(0, 198, 255, 0.2);
+      border: 1px solid rgba(0, 198, 255, 0.3);
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 32px;
+      background: linear-gradient(90deg, #00C6FF, #0072FF);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    a.btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      text-decoration: none;
+      background: linear-gradient(90deg, #00C6FF, #0072FF);
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    a.btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 198, 255, 0.5);
+    }
+
+ .background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.background-image {
+    width: 100%;
+    object-fit: cover;   
+    height: 100%;
+    transform: scale(1.0);
+}
+
+
+  </style>
+</head>
+<body>
+
+  <div class="background-container">
+    <img src="static/images/grapic.jpg" alt="the image thetesscope" class="background-image">
+    <div class="overlay"></div>
+  </div>
+
+  <div class="logout-container">
+    <h1>Logged Out</h1>
+    <p>You have been successfully logged out.</p>
+    <a href="{{ url_for('login') }}" class="btn">Login Again</a>
+  </div>
+
+</body>
+</html>
