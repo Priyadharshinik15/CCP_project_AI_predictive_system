@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disease Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0d0d1a, #1a1a33);
+      color: #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    header {
+      width: 100%;
+      padding: 15px 40px;
+      background-color: rgba(2, 21, 42, 0.5);
+      border-bottom: 1px solid rgba(0, 198, 255, 0.3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: #e0e0e0;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #00C6FF;
+    }
+
+    h2 {
+      margin: 40px 0 20px;
+      background: linear-gradient(90deg, #00C6FF, #0072FF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .chart-container {
+      width: 80%;
+      max-width: 700px;
+      background: rgba(2, 21, 42, 0.5);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 32px rgba(0, 198, 255, 0.2);
+      border: 1px solid rgba(0, 198, 255, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-text">🧬 NeuroPredict AI ⚕️</div>
+    <nav class="nav-links">
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('predictive_form') }}">Predict</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+  </header>
+
+  <h2>Disease Distribution Dashboard</h2>
+
+  <div class="chart-container">
+    <canvas id="diseaseChart"></canvas>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('diseaseChart').getContext('2d');
+    const diseaseChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: {{ labels | safe }},
+        datasets: [{
+          label: 'Disease Distribution',
+          data: {{ values | safe }},
+          backgroundColor: [
+            'rgba(0, 198, 255, 0.6)',
+            'rgba(0, 114, 255, 0.6)',
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)'
+          ],
+          borderColor: '#0d0d1a',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: { color: '#e0e0e0' }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
