@@ -9,7 +9,7 @@ from sklearn.linear_model import LogisticRegression
 app = Flask(__name__)
 app.secret_key = 'some_random_secret_key'  # Change this to a strong, random key
 
-# MySQL configurations
+# ------------------ MYSQL CONFIG ------------------
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'  # Replace with your MySQL username
 app.config['MYSQL_PASSWORD'] = 'Priya@1'  # Replace with your MySQL password
@@ -30,7 +30,6 @@ def train_model():
 
     model = LogisticRegression()
     model.fit(X_scaled, y)
-
 
 # ------------------ ROUTES ------------------
 @app.route("/")
@@ -93,7 +92,6 @@ def register():
         msg = 'Please fill out all fields!'
     return render_template('register.html', msg=msg)
 
-
 @app.route("/about")
 def about():
     return render_template("about.html")
@@ -105,7 +103,6 @@ def contact():
 @app.route("/help")
 def help():
     return render_template("help.html")
-
 
 # ------------------ PATIENT FORM + PREDICTION ------------------
 @app.route('/predictive_form', methods=['GET', 'POST'])
@@ -129,16 +126,24 @@ def predictive_form():
         scaled_features = scaler.transform(features)
 
         # Prediction
-        prediction = model.predict(scaled_features)[0]
+        predicted_disease = model.predict(scaled_features)[0]
+
+        # Remedies dictionary
+        remedies = {
+            "Wilson’s Disease": "Low-copper diet, zinc supplements, regular liver check-ups.",
+            "CJD": "No cure, supportive care, pain management, therapy.",
+            "Niemann-Pick Type C": "Medications like miglustat, physiotherapy, healthy diet.",
+            "Bat Disease": "Experimental therapies, supportive care, genetic counseling."
+        }
+        remedy_text = remedies.get(predicted_disease, "No specific remedy found.")
 
         return render_template("result.html",
                                name=name, age=age, gender=request.form['gender'],
                                memory_loss=memory_loss, behaviour=behaviour,
                                tremors=tremors, coordination=coordination,
                                seizures=seizures, vision=vision, copper=copper,
-                               prediction=prediction)
+                               disease=predicted_disease, remedy=remedy_text)
     return render_template("predictive_form.html")
-
 
 # ------------------ DASHBOARD ------------------
 @app.route("/dashboard")
@@ -151,13 +156,11 @@ def dashboard():
                            labels=list(disease_counts.keys()),
                            values=list(disease_counts.values()))
 
-
 # ------------------ LOGOUT ------------------
 @app.route('/logout')
 def logout():
     session.clear()
     return render_template("logout.html")
-
 
 # ------------------ MAIN ------------------
 if __name__ == "__main__":
