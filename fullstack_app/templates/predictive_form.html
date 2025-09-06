@@ -1,47 +1,62 @@
-@app.route('/predictive_form', methods=['GET', 'POST'])
-def predictive_form():
-    if request.method == 'POST':
-        # Collect form data
-        name = request.form['name']
-        age = int(request.form['age'])
-        gender = request.form['gender']
-        memory_loss = int(request.form['memory_loss'])
-        behaviour = int(request.form['behaviour'])
-        tremors = int(request.form['tremors'])
-        coordination = int(request.form['coordination'])
-        seizures = int(request.form['seizures'])
-        vision = int(request.form['vision'])
-        copper = float(request.form['copper'])
-
-        
-        input_data = np.array([[age, memory_loss, behaviour,
-                                tremors, coordination, seizures,
-                                vision, copper]])
-        scaled_input = scaler.transform(input_data)
-        predicted_disease = model.predict(scaled_input)[0]
-
-       
-        global predictions
-        if "predictions" not in globals():
-            predictions = []
-        predictions.append(predicted_disease)
-
-        # Remedies (example logic)
-        remedies = {
-            "Wilson's Disease": "Low-copper diet, zinc supplements, regular liver check-ups.",
-            "CJD": "No cure, supportive care, pain management, therapy.",
-            "Niemann-Pick Type C": "Medications like miglustat, physiotherapy, healthy diet.",
-            "Bat Disease": "No cure, supportive treatment, seizure control, physiotherapy.",
-            "None": "Eat fruits, exercise regularly, and stay healthy."
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Disease Prediction</title>
+    <style>
+        body {
+            background-color: #0d1b2a; 
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
         }
-        remedy = remedies.get(predicted_disease, "General wellness: eat fruits and stay healthy.")
-
-        # Send result to template
-        return render_template("result.html",
-                               name=name, age=age, gender=gender,
-                               memory_loss=memory_loss, behaviour=behaviour,
-                               tremors=tremors, coordination=coordination,
-                               seizures=seizures, vision=vision, copper=copper,
-                               prediction=predicted_disease, remedy=remedy)
-
-    return render_template("predictive_form.html")
+        h2 {
+            color: #00d4ff;
+        }
+        form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            width: 400px;
+            margin: auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        input, button {
+            margin: 8px 0;
+            padding: 10px;
+            width: 90%;
+            border: none;
+            border-radius: 8px;
+        }
+        input {
+            background: #ffffff;
+            color: #000000;
+        }
+        button {
+            background: #00d4ff;
+            color: #000000;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #009ecf;
+        }
+    </style>
+</head>
+<body>
+    <h2>Enter Patient Details</h2>
+    <form method="POST">
+        Name: <input type="text" name="name"><br>
+        Age: <input type="number" name="age"><br>
+        Gender: <input type="text" name="gender"><br>
+        Memory Loss (0/1): <input type="number" name="memory_loss"><br>
+        Behaviour (0/1): <input type="number" name="behaviour"><br>
+        Tremors (0/1): <input type="number" name="tremors"><br>
+        Coordination (0/1): <input type="number" name="coordination"><br>
+        Seizures (0/1): <input type="number" name="seizures"><br>
+        Vision (0/1): <input type="number" name="vision"><br>
+        Copper (numeric): <input type="text" name="copper"><br>
+        <button type="submit">Predict</button>
+    </form>
+</body>
+</html>
